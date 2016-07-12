@@ -1,0 +1,87 @@
+
+
+CREATE COMPUTE MODULE ESB_InfDisplayFlow_ApplyPresentationLogic
+	DECLARE WEB_COLOUR_ALARM  CHAR  'FF0000'; --Red
+	DECLARE WEB_COLOUR_GOOD CHAR  '00CC00'; --Green
+	DECLARE SensitiveDataRequiresHTTPS EXTERNAL BOOLEAN true;
+	
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	-- Apply the presentation logic such as colors for particular elements
+	BEGIN
+		
+		SET OutputRoot = InputRoot;
+		DECLARE DebugTemp CHAR;
+		
+		SET OutputRoot.XMLNSC.StatusData.RequestSource = Environment.ESBGetDisplay.cmd;
+		IF SensitiveDataRequiresHTTPS THEN 
+			IF Environment.ESBGetDisplay.cmd = 'HTTPS' THEN 
+				SET OutputRoot.XMLNSC.StatusData.DisplaySensitiveData = 'True';
+			ELSE
+				SET OutputRoot.XMLNSC.StatusData.DisplaySensitiveData = 'False';
+			END IF;
+		ELSE
+			SET OutputRoot.XMLNSC.StatusData.DisplaySensitiveData = 'True';
+		END IF;
+
+		--Change the color for executon groups
+		FOR eg AS OutputRoot.XMLNSC.StatusData.ExecutionGroups.ExecutionGroup[] DO
+			SET DebugTemp = eg.Name;
+			IF UCASE(eg.isRunning) = 'TRUE' THEN
+				SET eg.Status = 'Running';
+				SET eg.Status.(XMLNSC.Attribute)color = WEB_COLOUR_GOOD;
+			ELSE
+				SET eg.Status = 'Stopped';
+				SET eg.Status.(XMLNSC.Attribute)color = WEB_COLOUR_ALARM;
+			END IF;
+			FOR mf AS eg.MessageFlows.MessageFlow[] DO
+				SET DebugTemp = mf.Name;
+				IF UCASE(mf.isRunning) = 'TRUE' THEN
+					SET mf.Status = 'Running';
+					SET mf.Status.(XMLNSC.Attribute)color = WEB_COLOUR_GOOD;
+				ELSE
+					SET mf.Status = 'Stopped';
+					SET mf.Status.(XMLNSC.Attribute)color = WEB_COLOUR_ALARM;
+ 				END IF;
+ 				SET DebugTemp = mf.Name;
+ 				IF mf.MonitoringProfile = 'FoundationEventMonitoringProfile' THEN
+					SET mf.(XMLNSC.Attribute)MonitoringProfilecolor = WEB_COLOUR_GOOD;
+				ELSE
+					SET mf.(XMLNSC.Attribute)MonitoringProfilecolor = WEB_COLOUR_ALARM;
+ 				END IF;
+ 				IF mf.MonitoringStatus = 'active' THEN
+					SET mf.(XMLNSC.Attribute)MonitoringStatuscolor = WEB_COLOUR_GOOD;
+				ELSE
+					SET mf.(XMLNSC.Attribute)MonitoringStatuscolor = WEB_COLOUR_ALARM;
+ 				END IF;
+ 					
+				
+			END FOR;
+		END FOR;
+		
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;
+
+
+--				/*
+--					atts.add("RegistryPercentUsed",PercentFormat.format((double)(fileBR.getTotalSpace() - fileBR.getUsableSpace())/ fileBR.getTotalSpace()));
+--				 * status.append(WrapTags("HTTPPortColor", getPortColor(explicitPort, inUsePort)));
+--				 * status.append(WrapTags("HTTPSPortColor", getPortColor(explicitPort, inUsePort)));
+--				 * status.append(WrapTags("DebugPortActive", Boolean.toString(executionGroup.isDebugPortActive()),"false"));
+--				 * status.append(WrapTags("LastCompletionCode",executionGroup.getLastCompletionCode().toString(),	"success"));
+--				 * status.append(WrapTags("TraceNodeLevel", executionGroup.getRuntimeProperty("This/traceNodeLevel"), "off")); // Trace Nodes are on or off
+--				 * status.append(WrapTags("ServiceTraceLevel",	executionGroup.getRuntimeProperty("This/traceLevel"),"none"));
+--				 * status.append(WrapTags("UserTraceLevel", executionGroup.getRuntimeProperty("This/userTraceLevel"), "none"));
+--				 * status.append(WrapTags("MonitoringStatus",executionGroup.getRuntimeProperty("This/monitoring"),"active"));
+--				 * 
+--				 * status.append(WrapTags("ServiceTraceLevel", messageFlow.getRuntimeProperty("This/traceLevel"), "none"));
+--				 * status.append(WrapTags("UserTraceLevel", messageFlow.getRuntimeProperty("This/userTraceLevel"), "none"));
+--				 * status.append(WrapTags("MonitoringStatus", messageFlow.getRuntimeProperty("This/monitoring"), "active"));
+--				 * status.append(WrapTags("MonitoringProfile", messageFlow.getRuntimeProperty("This/monitoringProfile"),"FoundationEventMonitoringProfile"));
+--				 * 
+--				 * status.append(WrapTags("Status", messageFlow.isRunning()? "Running":"Stopped", "Running"));
+--				 * 
+--				 */
+

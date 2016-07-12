@@ -1,0 +1,32 @@
+
+Detail: 
+null
+com.ibm.www.ESBInfo.ESBGetDisplayInfo.getMessageFlowInfo(ESBGetDisplayInfo.java:301)
+com.ibm.www.ESBInfo.ESBGetDisplayInfo.getExecutionGroupInfo(ESBGetDisplayInfo.java:229)
+com.ibm.www.ESBInfo.ESBGetDisplayInfo.GetInfo(ESBGetDisplayInfo.java:124)
+com.ibm.www.ESBInfo.ESBGetDisplayInfo.evaluate(ESBGetDisplayInfo.java:70)
+com.ibm.broker.javacompute.MbRuntimeJavaComputeNode.evaluate(MbRuntimeJavaComputeNode.java:233)
+com.ibm.broker.plugin.MbNode.evaluate(MbNode.java:1434)
+
+Error: Non connection related error - if this problem persists please advise the deployment team
+
+Detail: 
+null
+com.ibm.www.ESBInfo.ESBGetDisplayInfo.getMessageFlowInfo(ESBGetDisplayInfo.java:301)
+com.ibm.www.ESBInfo.ESBGetDisplayInfo.getExecutionGroupInfo(ESBGetDisplayInfo.java:229)
+com.ibm.www.ESBInfo.ESBGetDisplayInfo.GetInfo(ESBGetDisplayInfo.java:124)
+com.ibm.www.ESBInfo.ESBGetDisplayInfo.evaluate(ESBGetDisplayInfo.java:70)
+com.ibm.broker.javacompute.MbRuntimeJavaComputeNode.evaluate(MbRuntimeJavaComputeNode.java:233)
+com.ibm.broker.plugin.MbNode.evaluate(MbNode.java:1434)
+
+
+Status information for LUDESB01 ()
+
+Error: Non connection related error - if this problem persists please advise the deployment team
+Detail:
+null
+com.ibm.www.ESBInfo.ESBGetDisplayInfo.getExecutionGroupInfo(ESBGetDisplayInfo.java:216)
+com.ibm.www.ESBInfo.ESBGetDisplayInfo.GetInfo(ESBGetDisplayInfo.java:124)
+com.ibm.www.ESBInfo.ESBGetDisplayInfo.evaluate(ESBGetDisplayInfo.java:70)
+com.ibm.broker.javacompute.MbRuntimeJavaComputeNode.evaluate(MbRuntimeJavaComputeNode.java:233)
+com.ibm.broker.plugin.MbNode.evaluate(MbNode.java:1434)

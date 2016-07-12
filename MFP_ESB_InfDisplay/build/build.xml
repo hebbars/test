@@ -1,0 +1,14 @@
+<project name="ESB_InfDisplay" basedir="." default="build">
+
+	<!-- Source Service Build Properties -->
+	<property file="build.properties"/>
+
+	<!-- Consolidate Service Component Information for Consumption by Common Build Task -->
+	<property name="service.projects" 
+			  value="${service.master.project}"/>
+	<property name="service.components" 
+			  value="${service.master.msgflow} ${service.master.mset}"/>
+
+	<!-- Import Common Build Properties -->
+	<import file="${basedir}/../../ABP_ServiceCommon/ant/common.xml"/>
+</project>

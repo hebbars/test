@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmJavaCompute.msgnode="ComIbmJavaCompute.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ComIbmXslMqsi.msgnode="ComIbmXslMqsi.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="ESB_InfDisplayFlow.msgflow"
+    nsPrefix="ESB_InfDisplayFlow.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.SensitiveDataRequiresHTTPS" name="SensitiveDataRequiresHTTPS" lowerBound="1" defaultValueLiteral="true">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eStructuralFeatures>
+    <translation xmi:type="utility:TranslatableString" key="ESB_InfDisplayFlow" bundleName="ESB_InfDisplayFlow" pluginId="MFP_ESB_InfDisplay"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/MFP_ESB_InfDisplay/icons/full/obj16/ESB_InfDisplayFlow.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/MFP_ESB_InfDisplay/icons/full/obj30/ESB_InfDisplayFlow.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="26,27" URLSpecifier="/BrokerInfo" parseQueryString="true" faultFormat="HTML">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="444,131">
+        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="368,56" stylesheetName="ESB_InfDisplayFormatAsHTML.xsl" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="XSL Transform"/>
+      </nodes>
+      <nodes xmi:type="ComIbmJavaCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="124,94" javaClass="com.ibm.ESBInfo.ESBGetDisplayInfo">
+        <translation xmi:type="utility:ConstantString" string="JavaCompute"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="21,155" URLSpecifier="/BrokerInfo" useHTTPS="true" parseQueryString="true" faultFormat="HTML">
+        <translation xmi:type="utility:ConstantString" string="HTTPS Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="236,55" computeExpression="esql://routine/#ESB_InfDisplayFlow_ApplyPresentationLogic.Main">
+        <translation xmi:type="utility:ConstantString" string="ApplyPresentationLogic"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_19" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_20" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_28" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.alternate" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer>
+      <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.SensitiveDataRequiresHTTPS">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.SensitiveDataRequiresHTTPS" bundleName="ESB_InfDisplayFlow" pluginId="MFP_ESB_InfDisplay"/>
+      </propertyDescriptor>
+    </propertyOrganizer>
+    <stickyBoard>
+      <stickyNote location="20,226">
+        <body xmi:type="utility:ConstantString" string="The flow supports entry via http or https. Depending on entry point and the setting of the UDP it will display different data.&#xA;HTTP headers are set appropriately for files or html inside the JavaCompute&#xA;(a PMR may need to be raised because it was not possible to change HTTPHeader settings through the HTTPHeader node)&#xA;"/>
+      </stickyNote>
+    </stickyBoard>
+  </eClassifiers>
+</ecore:EPackage>
