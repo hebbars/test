@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="JCN_HOME/javacompute.jar"/>
+	<classpathentry kind="var" path="JCN_HOME/jplugin2.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Program Files/IBM/MQSI/7.0/docs/JavaAPI/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Program Files/IBM/MQSI/7.0/classes/ConfigManagerProxy.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Program Files/IBM/MQSI/7.0/docs/ConfigManagerProxy/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path=""/>
+</classpath>
